@@ -34,4 +34,26 @@ class WebsiteController extends Controller
             'data' => $post,
         ]);
     }
+
+    public function subscribeUser(Website $website, Request $request)
+    {
+        $request->validate([
+            'user_id' => ['required'],
+        ], [
+            'user_id.required' => 'Please provide user Id',
+        ]);
+
+        if ($website->subscriptions()->where('user_id', $request->user_id)->exists()) {
+            return response()->json([
+                'message' => 'You are already subscribed to website',
+            ], 400);
+        }
+
+        $website->subscriptions()->create(['user_id' => $request->user_id]);
+
+        return response()->json([
+            'message' => 'You are now subscribed to the website',
+            'data' => $website,
+        ]);
+    }
 }

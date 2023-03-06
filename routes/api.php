@@ -28,4 +28,6 @@ Route::prefix('websites')->group(function () {
     Route::post("/", [WebsiteController::class, 'store']);
 
     Route::post("{website}/posts", [WebsiteController::class, 'storePost']);
+
+    Route::post("{website}/subscribe", [WebsiteController::class, 'subscribeUser']);
 });
