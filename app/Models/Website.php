@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Models\Post;
-use App\Models\Subscription;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Subscription;
+use App\Models\PostNotification;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Website extends Model
 {
@@ -26,8 +27,8 @@ class Website extends Model
         return $this->hasMany(Subscription::class);
     }
 
-    public function subscribers()
+    public function postNotification()
     {
-        return $this->hasManyThrough(User::class, Subscription::class);
+        return $this->hasMany(PostNotification::class);
     }
 }

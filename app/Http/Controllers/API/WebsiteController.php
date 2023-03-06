@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\CreateWebsiteRequest;
+use App\Jobs\SendPostNotificationJob;
 use App\Models\Website;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class WebsiteController extends Controller
     {
         $post = $website->posts()->create($request->validated());
 
-        // TODO Notify subscribers
+        SendPostNotificationJob::dispatch($post);
 
         return response()->json([
             'message' => 'Post Published',
