@@ -25,6 +25,8 @@ Route::prefix('users')->group(function () {
 
 
 Route::prefix('websites')->group(function () {
+    Route::get("/", [WebsiteController::class, 'index']);
+
     Route::post("/", [WebsiteController::class, 'store']);
 
     Route::post("{website}/posts", [WebsiteController::class, 'storePost']);
